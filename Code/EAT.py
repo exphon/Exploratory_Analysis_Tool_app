@@ -106,8 +106,7 @@ def main():
 
 
     st.sidebar.subheader('Brief tutorial about how this application works')
-    if st.sidebar.checkbox("Brief tutorial video"):
-        st.sidebar.video("https://www.youtube.com/watch?v=Kzd_LCP2m_c")
+    st.sidebar.video("https://youtu.be/hFUznmU2228")
 
 
     st.sidebar.markdown("**Help me to improve this application. See the source code below. Follow me!**")
