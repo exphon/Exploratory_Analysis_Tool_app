@@ -1,8 +1,6 @@
 from ExploratoryAnalysis import ExploratoryAnalysis
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go 
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -10,6 +8,10 @@ import matplotlib.pyplot as plt
 def main():
 
     st.title('Exploratory Analysis Tool')
+
+    st.info('''Welcome to the Exploratory Analysis Tool. This is a simple application to getting basic information and quick data visualization for generic csv files. 
+                Keep in mind that it is not a complete tool and very large files will reduce application performance.
+                If you find a bug or want to help improve this application, the source code is on the link on the left side.''')
 
     def GetFile():
         uploaded_file = st.file_uploader("", type="csv")
@@ -78,20 +80,21 @@ def main():
                 fig = EA.HeatMapCorr()
                 st.pyplot()
 
-            if st.sidebar.checkbox('Pairplot'):
-                st.subheader('Pairplot')
-                hue_pp_opt = st.sidebar.selectbox("Optional categorical variables (pairplot hue)",EA.columns.insert(0,None))
-                if st.checkbox('Plot Pairplot'):
-                    fig = EA.PairPlot(hue_pp_opt)
-                    st.pyplot()
-            
             if st.sidebar.checkbox('Boxplot'):
                 st.subheader('Boxplot')
                 column_box_plot_X = st.sidebar.selectbox("X (Choose a column):",EA.columns.insert(0,None))
-                column_box_plot_Y = st.sidebar.selectbox("Y (Choose a column):",EA.numerical_columns)
+                column_box_plot_Y = st.sidebar.selectbox("Y (Choose a column - only numerical):",EA.numerical_columns)
                 hue_box_opt = st.sidebar.selectbox("Optional categorical variables (boxplot hue)",EA.columns.insert(0,None))
                 if st.checkbox('Plot Boxplot'):
                     fig = EA.BoxPlot(column_box_plot_X, column_box_plot_Y, hue_box_opt)
+                    st.pyplot()
+
+            if st.sidebar.checkbox('Pairplot'):
+                st.subheader('Pairplot')
+                hue_pp_opt = st.sidebar.selectbox("Optional categorical variables (pairplot hue)",EA.columns.insert(0,None))
+                st.info("This action may take a while.")
+                if st.checkbox('Plot Pairplot'):
+                    fig = EA.PairPlot(hue_pp_opt)
                     st.pyplot()
     
     
@@ -108,10 +111,10 @@ def main():
 
 
     st.sidebar.markdown("**Help me to improve this application. See the source code below. Follow me!**")
-    st.sidebar.markdown("[Source code](https://github.com/rafaelloni)")
+    st.sidebar.markdown("[Source code](https://github.com/rafaelloni/EAT_app)")
     st.sidebar.markdown("**About the author:**")
     st.sidebar.markdown("[Rafael Loni](https://www.linkedin.com/in/rafael-loni/)")
-    #st.sidebar.markdown(" ` Version 0.2.1 ` ")
+    st.sidebar.markdown(" ` Version 0.0.1 ` ")
 
 if __name__ == "__main__":
     main()
